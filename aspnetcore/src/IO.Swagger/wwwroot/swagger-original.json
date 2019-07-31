@@ -1,0 +1,288 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Active Directory API Of HSBC",
+    "description" : "名称：活动目录API。  \n工具：[swagger](http://swagger.io)  \n规范：[openapi v3.0.0](https://www.openapis.org/)  \n",
+    "contact" : {
+      "email" : "cloudy.w.h.luo@hsbc.com.cn"
+    },
+    "license" : {
+      "name" : "HSBC Privacy (No Public)",
+      "url" : "https://www.about.hsbc.com.hk/zh-cn"
+    },
+    "version" : "1.8.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/C-Dream/Active-Directory-API/1.8.0"
+  }, {
+    "url" : "http://virtserver.swaggerhub.com/C-Dream/Active-Directory-API/1.8.0"
+  } ],
+  "tags" : [ {
+    "name" : "user",
+    "description" : "用户信息",
+    "externalDocs" : {
+      "description" : "跟详细的API描述，请查看",
+      "url" : "http://swagger.io"
+    }
+  } ],
+  "paths" : {
+    "/api/ad/getinfo" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "AD验证，成功则返回用户信息",
+        "operationId" : "getinfo",
+        "parameters" : [ {
+          "name" : "appid",
+          "in" : "path",
+          "description" : "APP 的 ID.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "adaccount",
+          "in" : "path",
+          "description" : "AD 账号.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "adpassword",
+          "in" : "path",
+          "description" : "AD 密码.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "AD验证成功",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "参数错误"
+          },
+          "401" : {
+            "description" : "无权限（APP）"
+          },
+          "403" : {
+            "description" : "无权限（AD用户）"
+          },
+          "404" : {
+            "description" : "账号或密码错误"
+          }
+        }
+      }
+    },
+    "/api/ad/query/{adaccount}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "获取某个用户的详细信息",
+        "operationId" : "getUserDetailByAdId",
+        "parameters" : [ {
+          "name" : "adaccount",
+          "in" : "path",
+          "description" : "AD 账号.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid username supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/api/ad/update/{adaccount}" : {
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "修改某个用户的信息",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "updateUser",
+        "parameters" : [ {
+          "name" : "adaccount",
+          "in" : "path",
+          "description" : "name that need to be updated",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Updated user object",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "400" : {
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/api/ad/delete/{adaccount}" : {
+      "delete" : {
+        "tags" : [ "user" ],
+        "summary" : "删除一个用户",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteUser",
+        "parameters" : [ {
+          "name" : "adaccount",
+          "in" : "path",
+          "description" : "The name that needs to be deleted",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid username supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "状态码",
+            "format" : "int4"
+          },
+          "msg" : {
+            "type" : "string",
+            "description" : "返回提示"
+          },
+          "fullname" : {
+            "type" : "string",
+            "description" : "用户全名"
+          },
+          "groups" : {
+            "type" : "string",
+            "description" : "用户组列表"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "邮箱"
+          },
+          "token" : {
+            "type" : "string",
+            "description" : "授权码"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "description" : "授权时间"
+          }
+        },
+        "example" : {
+          "msg" : "msg",
+          "code" : 0,
+          "groups" : "groups",
+          "fullname" : "fullname",
+          "email" : "email",
+          "token" : "token",
+          "timestamp" : "timestamp"
+        },
+        "xml" : {
+          "name" : "User"
+        }
+      }
+    },
+    "requestBodies" : {
+      "UserArray" : {
+        "description" : "List of user object",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "required" : true
+      }
+    },
+    "securitySchemes" : {
+      "petstore_auth" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "http://petstore.swagger.io/oauth/dialog",
+            "scopes" : {
+              "write:pets" : "modify pets in your account",
+              "read:pets" : "read your pets"
+            }
+          }
+        }
+      },
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "api_key",
+        "in" : "header"
+      }
+    }
+  }
+}
