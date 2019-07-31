@@ -19,7 +19,7 @@
   } ],
   "tags" : [ {
     "name" : "user",
-    "description" : "用户信息",
+    "description" : "用户接口",
     "externalDocs" : {
       "description" : "跟详细的API描述，请查看",
       "url" : "http://swagger.io"
@@ -33,31 +33,31 @@
         "operationId" : "getUserGroupById",
         "parameters" : [ {
           "name" : "appid",
-          "in" : "path",
+          "in" : "query",
           "description" : "APP 的 ID.",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
         }, {
           "name" : "adaccount",
-          "in" : "path",
+          "in" : "query",
           "description" : "AD 账号.",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
         }, {
           "name" : "adpassword",
-          "in" : "path",
+          "in" : "query",
           "description" : "AD 密码.",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -139,12 +139,22 @@
       "put" : {
         "tags" : [ "user" ],
         "summary" : "修改某个用户的信息",
-        "description" : "需要验证授权码后才能操作.",
+        "description" : "需要验证授权码后才能操作(request header中带token参数).",
         "operationId" : "updateUserById",
         "parameters" : [ {
           "name" : "adaccount",
           "in" : "path",
-          "description" : "name that need to be updated",
+          "description" : "AD 账号",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "token",
+          "in" : "header",
+          "description" : "授权码",
           "required" : true,
           "style" : "simple",
           "explode" : false,
