@@ -30,7 +30,7 @@
       "get" : {
         "tags" : [ "user" ],
         "summary" : "AD验证，成功则返回用户信息",
-        "operationId" : "getinfo",
+        "operationId" : "getUserGroupById",
         "parameters" : [ {
           "name" : "appid",
           "in" : "path",
@@ -93,11 +93,12 @@
         }
       }
     },
-    "/api/ad/query/{adaccount}" : {
+    "/api/ad/queryuser/{adaccount}" : {
       "get" : {
         "tags" : [ "user" ],
         "summary" : "获取某个用户的详细信息",
-        "operationId" : "getUserDetailByAdId",
+        "description" : "获取某个用户的详细信息",
+        "operationId" : "getUserDetailById",
         "parameters" : [ {
           "name" : "adaccount",
           "in" : "path",
@@ -134,12 +135,12 @@
         }
       }
     },
-    "/api/ad/update/{adaccount}" : {
+    "/api/ad/updateuser/{adaccount}" : {
       "put" : {
         "tags" : [ "user" ],
         "summary" : "修改某个用户的信息",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "updateUser",
+        "description" : "需要验证授权码后才能操作.",
+        "operationId" : "updateUserById",
         "parameters" : [ {
           "name" : "adaccount",
           "in" : "path",
@@ -172,12 +173,12 @@
         }
       }
     },
-    "/api/ad/delete/{adaccount}" : {
+    "/api/ad/deleteuser/{adaccount}" : {
       "delete" : {
         "tags" : [ "user" ],
         "summary" : "删除一个用户",
-        "description" : "This can only be done by the logged in user.",
-        "operationId" : "deleteUser",
+        "description" : "需要验证授权码后才能操作.",
+        "operationId" : "deleteUserById",
         "parameters" : [ {
           "name" : "adaccount",
           "in" : "path",

@@ -30,15 +30,15 @@ namespace IO.Swagger.Controllers
         /// <summary>
         /// 删除一个用户
         /// </summary>
-        /// <remarks>This can only be done by the logged in user.</remarks>
+        /// <remarks>需要验证授权码后才能操作.</remarks>
         /// <param name="adaccount">The name that needs to be deleted</param>
         /// <response code="400">Invalid username supplied</response>
         /// <response code="404">User not found</response>
         [HttpDelete]
-        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/delete/{adaccount}")]
+        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/deleteuser/{adaccount}")]
         [ValidateModelState]
-        [SwaggerOperation("DeleteUser")]
-        public virtual IActionResult DeleteUser([FromRoute][Required]string adaccount)
+        [SwaggerOperation("DeleteUserById")]
+        public virtual IActionResult DeleteUserById([FromRoute][Required]string adaccount)
         { 
             //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(400);
@@ -52,16 +52,17 @@ namespace IO.Swagger.Controllers
         /// <summary>
         /// 获取某个用户的详细信息
         /// </summary>
+        /// <remarks>获取某个用户的详细信息</remarks>
         /// <param name="adaccount">AD 账号.</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid username supplied</response>
         /// <response code="404">User not found</response>
         [HttpGet]
-        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/query/{adaccount}")]
+        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/queryuser/{adaccount}")]
         [ValidateModelState]
-        [SwaggerOperation("GetUserDetailByAdId")]
+        [SwaggerOperation("GetUserDetailById")]
         [SwaggerResponse(statusCode: 200, type: typeof(User), description: "successful operation")]
-        public virtual IActionResult GetUserDetailByAdId([FromRoute][Required]string adaccount)
+        public virtual IActionResult GetUserDetailById([FromRoute][Required]string adaccount)
         { 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(User));
@@ -94,9 +95,9 @@ namespace IO.Swagger.Controllers
         [HttpGet]
         [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/getinfo")]
         [ValidateModelState]
-        [SwaggerOperation("Getinfo")]
+        [SwaggerOperation("GetUserGroupById")]
         [SwaggerResponse(statusCode: 200, type: typeof(User), description: "AD验证成功")]
-        public virtual IActionResult Getinfo([FromRoute][Required]string appid, [FromRoute][Required]string adaccount, [FromRoute][Required]string adpassword)
+        public virtual IActionResult GetUserGroupById([FromRoute][Required]string appid, [FromRoute][Required]string adaccount, [FromRoute][Required]string adpassword)
         { 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(User));
@@ -124,16 +125,16 @@ namespace IO.Swagger.Controllers
         /// <summary>
         /// 修改某个用户的信息
         /// </summary>
-        /// <remarks>This can only be done by the logged in user.</remarks>
+        /// <remarks>需要验证授权码后才能操作.</remarks>
         /// <param name="body">Updated user object</param>
         /// <param name="adaccount">name that need to be updated</param>
         /// <response code="400">Invalid user supplied</response>
         /// <response code="404">User not found</response>
         [HttpPut]
-        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/update/{adaccount}")]
+        [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/updateuser/{adaccount}")]
         [ValidateModelState]
-        [SwaggerOperation("UpdateUser")]
-        public virtual IActionResult UpdateUser([FromBody]User body, [FromRoute][Required]string adaccount)
+        [SwaggerOperation("UpdateUserById")]
+        public virtual IActionResult UpdateUserById([FromBody]User body, [FromRoute][Required]string adaccount)
         { 
             //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(400);
