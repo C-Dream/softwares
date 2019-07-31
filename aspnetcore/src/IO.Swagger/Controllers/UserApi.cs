@@ -31,17 +31,22 @@ namespace IO.Swagger.Controllers
         /// 删除一个用户
         /// </summary>
         /// <remarks>需要验证授权码后才能操作.</remarks>
-        /// <param name="adaccount">The name that needs to be deleted</param>
-        /// <response code="400">Invalid username supplied</response>
-        /// <response code="404">User not found</response>
+        /// <param name="adaccount">AD 账号</param>
+        /// <param name="token">授权码</param>
+        /// <response code="400">参数错误</response>
+        /// <response code="401">无权限（APP）</response>
+        /// <response code="404">用户不存在</response>
         [HttpDelete]
         [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/deleteuser/{adaccount}")]
         [ValidateModelState]
         [SwaggerOperation("DeleteUserById")]
-        public virtual IActionResult DeleteUserById([FromRoute][Required]string adaccount)
+        public virtual IActionResult DeleteUserById([FromRoute][Required]string adaccount, [FromHeader][Required()]string token)
         { 
             //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(400);
+
+            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(401);
 
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404);
@@ -126,19 +131,22 @@ namespace IO.Swagger.Controllers
         /// 修改某个用户的信息
         /// </summary>
         /// <remarks>需要验证授权码后才能操作(request header中带token参数).</remarks>
-        /// <param name="body">Updated user object</param>
-        /// <param name="token">授权码</param>
         /// <param name="adaccount">AD 账号</param>
-        /// <response code="400">Invalid user supplied</response>
-        /// <response code="404">User not found</response>
+        /// <param name="token">授权码</param>
+        /// <response code="400">参数错误</response>
+        /// <response code="401">无权限（APP）</response>
+        /// <response code="404">用户不存在</response>
         [HttpPut]
         [Route("/C-Dream/Active-Directory-API/1.8.0/api/ad/updateuser/{adaccount}")]
         [ValidateModelState]
         [SwaggerOperation("UpdateUserById")]
-        public virtual IActionResult UpdateUserById([FromBody]User body, [FromHeader][Required()]string token, [FromRoute][Required]string adaccount)
+        public virtual IActionResult UpdateUserById([FromRoute][Required]string adaccount, [FromHeader][Required()]string token)
         { 
             //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(400);
+
+            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(401);
 
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404);

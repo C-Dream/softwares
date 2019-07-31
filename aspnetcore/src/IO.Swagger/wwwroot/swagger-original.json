@@ -162,23 +162,15 @@
             "type" : "string"
           }
         } ],
-        "requestBody" : {
-          "description" : "Updated user object",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/User"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "400" : {
-            "description" : "Invalid user supplied"
+            "description" : "参数错误"
+          },
+          "401" : {
+            "description" : "无权限（APP）"
           },
           "404" : {
-            "description" : "User not found"
+            "description" : "用户不存在"
           }
         }
       }
@@ -192,7 +184,17 @@
         "parameters" : [ {
           "name" : "adaccount",
           "in" : "path",
-          "description" : "The name that needs to be deleted",
+          "description" : "AD 账号",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "token",
+          "in" : "header",
+          "description" : "授权码",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -202,10 +204,13 @@
         } ],
         "responses" : {
           "400" : {
-            "description" : "Invalid username supplied"
+            "description" : "参数错误"
+          },
+          "401" : {
+            "description" : "无权限（APP）"
           },
           "404" : {
-            "description" : "User not found"
+            "description" : "用户不存在"
           }
         }
       }
